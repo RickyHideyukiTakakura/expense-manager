@@ -14,14 +14,14 @@ export function ExpenseFilters() {
 
       <Input placeholder="Método de pagamento" className="h-8 w-[320px]" />
 
-      <DatePicker />
+      <DatePicker className="h-8 w-auto" isSmall />
 
-      <Button type="submit" variant="secondary">
+      <Button type="submit" variant="secondary" size="xs">
         <Search className="mr-2 size-4" />
         Filtrar resultados
       </Button>
 
-      <Button type="button" variant="outline">
+      <Button type="button" variant="outline" size="xs">
         <X className="mr-2 size-4" />
         Remover filtros
       </Button>
