@@ -18,7 +18,7 @@ export function ExpenseDialog() {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="flex items-center gap-2 bg-primary-foreground text-primary hover:text-primary/80"
+          className="flex items-center gap-2 bg-primary-foreground text-primary hover:text-primary/80 dark:bg-primary dark:text-foreground dark:hover:bg-primary/80"
         >
           <Plus className="size-4" />
           <span className="text-sm">Adicionar</span>
