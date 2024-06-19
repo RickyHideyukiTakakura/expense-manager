@@ -26,7 +26,7 @@ export function Expenses() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-80">Título</TableHead>
+                <TableHead className="w-80">Descrição</TableHead>
                 <TableHead className="w-52">Categoria</TableHead>
                 <TableHead className="w-60">Método de pagamento</TableHead>
                 <TableHead className="w-36">Preço</TableHead>
