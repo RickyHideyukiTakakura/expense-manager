@@ -13,11 +13,11 @@ import { cn } from "@/lib/utils";
 
 interface DatePickerProps extends React.ComponentProps<"div"> {
   isSmall?: boolean;
+  date: Date | undefined;
+  onDateChange: (date: Date | undefined) => void;
 }
 
 export function DatePicker(props: DatePickerProps) {
-  const [date, setDate] = React.useState<Date>();
-
   return (
     <div className={cn(props.className)}>
       <Popover>
@@ -27,18 +27,18 @@ export function DatePicker(props: DatePickerProps) {
             size={props.isSmall ? "xs" : "default"}
             className={cn(
               "w-[280px] justify-start text-left font-normal",
-              !date && "text-muted-foreground",
+              !props.date && "text-muted-foreground",
             )}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
-            {date ? format(date, "PPP") : <span>Pick a date</span>}
+            {props.date ? format(props.date, "PPP") : <span>Pick a date</span>}
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0">
           <Calendar
             mode="single"
-            selected={date}
-            onSelect={setDate}
+            selected={props.date}
+            onSelect={props.onDateChange}
             initialFocus
           />
         </PopoverContent>
