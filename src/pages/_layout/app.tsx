@@ -9,10 +9,7 @@ export function AppLayout() {
 
   useEffect(() => {
     const interceptorId = api.interceptors.response.use(
-      (response) => {
-        console.log(response);
-        return response;
-      },
+      (response) => response,
       (error) => {
         if (isAxiosError(error)) {
           const status = error.response?.status;

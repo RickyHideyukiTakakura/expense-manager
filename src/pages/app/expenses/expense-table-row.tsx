@@ -10,14 +10,30 @@ import {
 import { TableCell, TableRow } from "@/components/ui/table";
 import { MoreHorizontal, Pencil, X } from "lucide-react";
 
-export function ExpenseTableRow() {
+interface ExpanseTableRowProps {
+  expense: {
+    id: string;
+    description: string;
+    category: string;
+    payment: string;
+    price: number;
+    createdAt: string;
+  };
+}
+
+export function ExpenseTableRow({ expense }: ExpanseTableRowProps) {
   return (
     <TableRow>
-      <TableCell>Netflix</TableCell>
-      <TableCell>Streaming</TableCell>
-      <TableCell>Cartão de crédito</TableCell>
-      <TableCell>R$55,00</TableCell>
-      <TableCell>31/05/2024</TableCell>
+      <TableCell>{expense.description}</TableCell>
+      <TableCell>{expense.category}</TableCell>
+      <TableCell>{expense.payment}</TableCell>
+      <TableCell>
+        {expense.price.toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        })}
+      </TableCell>
+      <TableCell>{expense.createdAt}</TableCell>
       <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

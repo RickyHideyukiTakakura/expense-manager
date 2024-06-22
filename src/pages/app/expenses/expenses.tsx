@@ -1,16 +1,35 @@
+import { getExpenses } from "@/api/get-expenses";
 import { Pagination } from "@/components/pagination";
 import {
   Table,
   TableBody,
+  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { z } from "zod";
 import { ExpenseDialog } from "./expense-dialog";
 import { ExpenseFilters } from "./expense-filters";
 import { ExpenseTableRow } from "./expense-table-row";
 
 export function Expenses() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const pageIndex = z.coerce.number().parse(searchParams.get("page") ?? "1");
+
+  const { data: result, isLoading: isLoadingExpenses } = useQuery({
+    queryKey: ["expenses", pageIndex],
+    queryFn: () =>
+      getExpenses({
+        pageIndex,
+      }),
+  });
+
+  console.log(result?.expenses);
+
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">
@@ -36,9 +55,16 @@ export function Expenses() {
             </TableHeader>
 
             <TableBody>
-              {Array.from({ length: 20 }).map((_, i) => {
-                return <ExpenseTableRow key={i} />;
-              })}
+              {isLoadingExpenses && (
+                <TableRow>
+                  <TableCell>Carregando</TableCell>
+                </TableRow>
+              )}
+
+              {result &&
+                result.expenses.map((expense) => {
+                  return <ExpenseTableRow key={expense.id} expense={expense} />;
+                })}
             </TableBody>
           </Table>
         </div>

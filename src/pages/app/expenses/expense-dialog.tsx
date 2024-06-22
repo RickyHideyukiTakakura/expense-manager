@@ -118,12 +118,7 @@ export function ExpenseDialog() {
             <Label htmlFor="price" className="text-right">
               Preço
             </Label>
-            <Input
-              id="price"
-              type="number"
-              className="col-span-3"
-              {...register("price")}
-            />
+            <Input id="price" className="col-span-3" {...register("price")} />
           </div>
 
           <div className="grid grid-cols-4 items-center gap-4">
