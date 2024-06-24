@@ -1,3 +1,4 @@
+import { deleteExpense } from "@/api/delete-expense";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -8,7 +9,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TableCell, TableRow } from "@/components/ui/table";
+import { queryClient } from "@/lib/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { MoreHorizontal, Pencil, X } from "lucide-react";
+import { toast } from "sonner";
 
 interface ExpanseTableRowProps {
   expense: {
@@ -22,6 +28,25 @@ interface ExpanseTableRowProps {
 }
 
 export function ExpenseTableRow({ expense }: ExpanseTableRowProps) {
+  const { mutateAsync: deleteExpenseFn, isPending } = useMutation({
+    mutationFn: deleteExpense,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["expenses"] });
+    },
+  });
+
+  async function handleDeleteExpense(expenseId: string) {
+    try {
+      await deleteExpenseFn({
+        id: expenseId,
+      });
+
+      toast.success("Despesa deletada com sucesso.");
+    } catch (error: any) {
+      toast.error(error.message);
+    }
+  }
+
   return (
     <TableRow>
       <TableCell>{expense.description}</TableCell>
@@ -33,7 +58,9 @@ export function ExpenseTableRow({ expense }: ExpanseTableRowProps) {
           currency: "BRL",
         })}
       </TableCell>
-      <TableCell>{expense.createdAt}</TableCell>
+      <TableCell>
+        {format(expense.createdAt, "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
+      </TableCell>
       <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -48,7 +75,11 @@ export function ExpenseTableRow({ expense }: ExpanseTableRowProps) {
               <Pencil className="size-4" />
               <span className="text-sm">Editar</span>
             </DropdownMenuItem>
-            <DropdownMenuItem className="flex cursor-pointer items-center gap-2 focus:bg-destructive/70">
+            <DropdownMenuItem
+              className="flex cursor-pointer items-center gap-2 focus:bg-destructive/70"
+              onClick={() => handleDeleteExpense(expense.id)}
+              disabled={isPending}
+            >
               <X className="size-4" />
               <span className="text-sm">Excluir</span>
             </DropdownMenuItem>

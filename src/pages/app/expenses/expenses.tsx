@@ -3,7 +3,6 @@ import { Pagination } from "@/components/pagination";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -14,6 +13,7 @@ import { z } from "zod";
 import { ExpenseDialog } from "./expense-dialog";
 import { ExpenseFilters } from "./expense-filters";
 import { ExpenseTableRow } from "./expense-table-row";
+import { ExpenseTableRowSkeleton } from "./expense-table-row-skeleton";
 
 export function Expenses() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -55,11 +55,7 @@ export function Expenses() {
             </TableHeader>
 
             <TableBody>
-              {isLoadingExpenses && (
-                <TableRow>
-                  <TableCell>Carregando</TableCell>
-                </TableRow>
-              )}
+              {isLoadingExpenses && <ExpenseTableRowSkeleton />}
 
               {result &&
                 result.expenses.map((expense) => {

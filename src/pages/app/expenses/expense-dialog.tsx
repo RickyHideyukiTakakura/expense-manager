@@ -10,6 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { queryClient } from "@/lib/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import { useMutation } from "@tanstack/react-query";
@@ -42,6 +43,9 @@ export function ExpenseDialog() {
 
   const { mutateAsync: createExpenseFn } = useMutation({
     mutationFn: createExpense,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["expenses"] });
+    },
   });
 
   async function handleCreateExpense(data: CreateExpenseBodySchema) {
