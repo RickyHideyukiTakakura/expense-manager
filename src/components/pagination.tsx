@@ -30,13 +30,13 @@ export function Pagination({
 
       <div className="flex items-center gap-6 lg:gap-8">
         <div className="text-sm font-medium">
-          Página {pageIndex + 1} de {pages}
+          Página {pageIndex} de {pages}
         </div>
 
         <div className="flex items-center gap-2">
           <Button
-            onClick={() => onPageChange(0)}
-            disabled={pageIndex === 0}
+            onClick={() => onPageChange(1)}
+            disabled={pageIndex === 1}
             variant="outline"
             className="size-8 p-0"
           >
@@ -46,7 +46,7 @@ export function Pagination({
 
           <Button
             onClick={() => onPageChange(pageIndex - 1)}
-            disabled={pageIndex === 0}
+            disabled={pageIndex === 1}
             variant="outline"
             className="size-8 p-0"
           >
@@ -56,7 +56,7 @@ export function Pagination({
 
           <Button
             onClick={() => onPageChange(pageIndex + 1)}
-            disabled={pages <= pageIndex + 1}
+            disabled={pages <= pageIndex}
             variant="outline"
             className="size-8 p-0"
           >
@@ -65,8 +65,8 @@ export function Pagination({
           </Button>
 
           <Button
-            onClick={() => onPageChange(pages - 1)}
-            disabled={pages <= pageIndex + 1}
+            onClick={() => onPageChange(pages)}
+            disabled={pages <= pageIndex}
             variant="outline"
             className="size-8 p-0"
           >

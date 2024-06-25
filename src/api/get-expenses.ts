@@ -13,6 +13,7 @@ export interface GetExpensesResponse {
     price: number;
     createdAt: string;
   }[];
+  totalItems: number;
 }
 
 export async function getExpenses({ pageIndex }: GetExpensesQuery) {

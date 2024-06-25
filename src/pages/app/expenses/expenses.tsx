@@ -28,6 +28,14 @@ export function Expenses() {
       }),
   });
 
+  function handlePaginate(pageIndex: number) {
+    setSearchParams((state) => {
+      state.set("page", pageIndex.toString());
+
+      return state;
+    });
+  }
+
   console.log(result?.expenses);
 
   return (
@@ -65,12 +73,14 @@ export function Expenses() {
           </Table>
         </div>
 
-        <Pagination
-          pageIndex={0}
-          totalCount={0}
-          perPage={0}
-          onPageChange={() => {}}
-        />
+        {result && (
+          <Pagination
+            pageIndex={pageIndex}
+            totalCount={result.totalItems}
+            perPage={10}
+            onPageChange={handlePaginate}
+          />
+        )}
       </div>
     </div>
   );
