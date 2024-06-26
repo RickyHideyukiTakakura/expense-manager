@@ -10,7 +10,7 @@ export function App() {
     <>
       <ThemeProvider defaultTheme="system" storageKey="expense-manager-theme">
         <QueryClientProvider client={queryClient}>
-          <Toaster richColors />
+          <Toaster richColors closeButton />
           <RouterProvider router={routes} />
         </QueryClientProvider>
       </ThemeProvider>

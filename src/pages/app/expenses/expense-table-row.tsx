@@ -28,12 +28,13 @@ interface ExpanseTableRowProps {
 }
 
 export function ExpenseTableRow({ expense }: ExpanseTableRowProps) {
-  const { mutateAsync: deleteExpenseFn, isPending } = useMutation({
-    mutationFn: deleteExpense,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["expenses"] });
-    },
-  });
+  const { mutateAsync: deleteExpenseFn, isPending: isDeletingExpense } =
+    useMutation({
+      mutationFn: deleteExpense,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["expenses"] });
+      },
+    });
 
   async function handleDeleteExpense(expenseId: string) {
     try {
@@ -78,7 +79,7 @@ export function ExpenseTableRow({ expense }: ExpanseTableRowProps) {
             <DropdownMenuItem
               className="flex cursor-pointer items-center gap-2 focus:bg-destructive/70"
               onClick={() => handleDeleteExpense(expense.id)}
-              disabled={isPending}
+              disabled={isDeletingExpense}
             >
               <X className="size-4" />
               <span className="text-sm">Excluir</span>

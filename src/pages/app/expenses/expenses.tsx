@@ -36,8 +36,6 @@ export function Expenses() {
     });
   }
 
-  console.log(result?.expenses);
-
   return (
     <div className="space-y-8">
       <div className="flex items-center justify-between">

@@ -8,6 +8,10 @@ export function ExpenseTableRowSkeleton() {
     return (
       <TableRow key={i}>
         <TableCell>
+          <Skeleton className="h-4 w-[200px]" />
+        </TableCell>
+
+        <TableCell>
           <Skeleton className="h-4 w-[172px]" />
         </TableCell>
 
@@ -21,14 +25,6 @@ export function ExpenseTableRowSkeleton() {
 
         <TableCell>
           <Skeleton className="h-4 w-[110px]" />
-        </TableCell>
-
-        <TableCell>
-          <Skeleton className="h-4 w-[200px]" />
-        </TableCell>
-
-        <TableCell>
-          <Skeleton className="h-4 w-[64px]" />
         </TableCell>
 
         <TableCell>

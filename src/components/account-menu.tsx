@@ -1,4 +1,7 @@
+import { signOut } from "@/api/sign-out";
+import { useMutation } from "@tanstack/react-query";
 import { ChevronDown, LogOut } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -10,6 +13,17 @@ import {
 } from "./ui/dropdown-menu";
 
 export function AccountMenu() {
+  const navigate = useNavigate();
+
+  const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
+    mutationFn: signOut,
+    onSuccess: () => {
+      navigate("/sign-in", {
+        replace: true,
+      });
+    },
+  });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -33,8 +47,12 @@ export function AccountMenu() {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild className="text-rose-500 dark:text-rose-400">
-          <button className="w-full">
+        <DropdownMenuItem
+          asChild
+          disabled={isSigningOut}
+          className="text-rose-500 dark:text-rose-400"
+        >
+          <button className="w-full" onClick={() => signOutFn()}>
             <LogOut className="mr-2 size-4" />
 
             <span>Sair</span>
