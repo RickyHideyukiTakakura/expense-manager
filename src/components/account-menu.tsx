@@ -1,5 +1,6 @@
+import { getProfile } from "@/api/get-profile";
 import { signOut } from "@/api/sign-out";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { ChevronDown, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -11,9 +12,15 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Skeleton } from "./ui/skeleton";
 
 export function AccountMenu() {
   const navigate = useNavigate();
+
+  const { data: result, isLoading: isLoadingProfile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
 
   const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
     mutationFn: signOut,
@@ -31,7 +38,11 @@ export function AccountMenu() {
           variant="outline"
           className="flex select-none items-center gap-2"
         >
-          <span>Ricky Takakura</span>
+          {isLoadingProfile ? (
+            <Skeleton className="h-4 w-32" />
+          ) : (
+            <span>{result?.user.name}</span>
+          )}
 
           <ChevronDown className="size-4" />
         </Button>
@@ -39,10 +50,18 @@ export function AccountMenu() {
 
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="flex flex-col">
-          <span>Ricky Takakura</span>
-          <span className="text-xs font-normal text-muted-foreground">
-            rickytakakakura@gmail.com
-          </span>
+          {isLoadingProfile ? (
+            <Skeleton className="h-4 w-32" />
+          ) : (
+            <span>{result?.user.name}</span>
+          )}
+          {isLoadingProfile ? (
+            <Skeleton className="mt-1 h-4 w-40" />
+          ) : (
+            <span className="text-xs font-normal text-muted-foreground">
+              {result?.user.email}
+            </span>
+          )}
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />

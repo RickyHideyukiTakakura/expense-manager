@@ -2,6 +2,10 @@ import { api } from "@/lib/axios";
 
 export interface GetExpensesQuery {
   pageIndex?: number | null;
+  description?: string | null;
+  category?: string | null;
+  payment?: string | null;
+  createdAt?: Date | null;
 }
 
 export interface GetExpensesResponse {
@@ -16,10 +20,20 @@ export interface GetExpensesResponse {
   totalItems: number;
 }
 
-export async function getExpenses({ pageIndex }: GetExpensesQuery) {
+export async function getExpenses({
+  pageIndex,
+  description,
+  category,
+  payment,
+  createdAt,
+}: GetExpensesQuery) {
   const response = await api.get<GetExpensesResponse>("/expenses", {
     params: {
       pageIndex,
+      description,
+      category,
+      payment,
+      createdAt,
     },
   });
 
