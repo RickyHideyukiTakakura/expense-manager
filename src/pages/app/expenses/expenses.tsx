@@ -19,12 +19,29 @@ export function Expenses() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const pageIndex = z.coerce.number().parse(searchParams.get("page") ?? "1");
+  const description = searchParams.get("description");
+  const category = searchParams.get("category");
+  const payment = searchParams.get("payment");
+  const createdAtParam = searchParams.get("createdAt") || undefined;
+
+  const createdAt = createdAtParam ? new Date(createdAtParam) : undefined;
 
   const { data: result, isLoading: isLoadingExpenses } = useQuery({
-    queryKey: ["expenses", pageIndex],
+    queryKey: [
+      "expenses",
+      pageIndex,
+      description,
+      category,
+      payment,
+      createdAt,
+    ],
     queryFn: () =>
       getExpenses({
         pageIndex,
+        description,
+        category,
+        payment,
+        createdAt,
       }),
   });
 

@@ -12,7 +12,7 @@ const expenseFilterSchema = z.object({
   description: z.string().optional(),
   category: z.string().optional(),
   payment: z.string().optional(),
-  createdAt: z.string().optional(),
+  createdAt: z.date().optional(),
 });
 
 type ExpenseFilterSchema = z.infer<typeof expenseFilterSchema>;
@@ -22,6 +22,11 @@ export function ExpenseFilters() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const description = searchParams.get("description");
+  const category = searchParams.get("category");
+  const payment = searchParams.get("payment");
+  const createdAt = searchParams.get("createdAt");
+
   const {
     register,
     handleSubmit,
@@ -29,10 +34,35 @@ export function ExpenseFilters() {
     formState: { isSubmitting },
   } = useForm<ExpenseFilterSchema>({
     resolver: zodResolver(expenseFilterSchema),
-    defaultValues: {},
+    defaultValues: {
+      description: description ?? "",
+      category: category ?? "",
+      payment: payment ?? "",
+      createdAt: createdAt ? new Date(createdAt) : undefined,
+    },
   });
 
-  function handleFilter() {}
+  function handleFilter(data: ExpenseFilterSchema) {
+    setSearchParams((state) => {
+      data.description
+        ? state.set("description", data.description)
+        : state.delete("description");
+
+      data.category
+        ? state.set("category", data.category)
+        : state.delete("category");
+
+      data.payment
+        ? state.set("payment", data.payment)
+        : state.delete("payment");
+
+      date
+        ? state.set("createdAt", date.toISOString())
+        : state.delete("createdAt");
+
+      return state;
+    });
+  }
 
   function handleClearFilters() {
     setSearchParams((state) => {
@@ -40,7 +70,6 @@ export function ExpenseFilters() {
       state.delete("category");
       state.delete("payment");
       state.delete("createdAt");
-
       state.set("page", "1");
 
       return state;
@@ -52,7 +81,6 @@ export function ExpenseFilters() {
       payment: "",
       createdAt: undefined,
     });
-
     setDate(undefined);
   }
 
