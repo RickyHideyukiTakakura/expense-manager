@@ -1,5 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign } from "lucide-react";
+import { ExpenseChart } from "./expense-chart";
+import { PopularCategoryChart } from "./popular-category-chart";
 
 export function Dashboard() {
   return (
@@ -63,10 +65,10 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <div className="flex justify-between">
-        <div>Linear Graph</div>
+      <div className="grid grid-cols-9 gap-4">
+        <ExpenseChart />
 
-        <div>Pizza Graph</div>
+        <PopularCategoryChart />
       </div>
     </div>
   );
