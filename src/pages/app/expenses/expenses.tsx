@@ -10,7 +10,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 import { z } from "zod";
-import { ExpenseDialog } from "./expense-dialog";
+import { ExpenseDialogCreate } from "./expense-dialog-create";
 import { ExpenseFilters } from "./expense-filters";
 import { ExpenseTableRow } from "./expense-table-row";
 import { ExpenseTableRowSkeleton } from "./expense-table-row-skeleton";
@@ -58,7 +58,7 @@ export function Expenses() {
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-bold tracking-tight">Despesas</h1>
 
-        <ExpenseDialog />
+        <ExpenseDialogCreate />
       </div>
 
       <ExpenseFilters />

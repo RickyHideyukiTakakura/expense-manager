@@ -30,7 +30,7 @@ const createExpenseBodySchema = z.object({
 
 type CreateExpenseBodySchema = z.infer<typeof createExpenseBodySchema>;
 
-export function ExpenseDialog() {
+export function ExpenseDialogCreate() {
   const [createdAt, setCreatedAt] = useState<Date | undefined>();
 
   const {
