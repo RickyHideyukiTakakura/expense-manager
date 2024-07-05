@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign } from "lucide-react";
 import { ExpenseChart } from "./expense-chart";
+import { ExpensesTotalAmountCard } from "./expenses-total-amount-card";
 import { PopularCategoryChart } from "./popular-category-chart";
 
 export function Dashboard() {
@@ -49,20 +50,7 @@ export function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-base font-semibold">
-              Gastos totais
-            </CardTitle>
-            <DollarSign className="size-4 text-primary" />
-          </CardHeader>
-
-          <CardContent>
-            <span className="text-2xl font-bold tracking-tight">R$1250,00</span>
-
-            <p className="text-xs text-muted-foreground">Totais</p>
-          </CardContent>
-        </Card>
+        <ExpensesTotalAmountCard />
       </div>
 
       <div className="grid grid-cols-9 gap-4">

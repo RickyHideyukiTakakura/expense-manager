@@ -43,6 +43,7 @@ export function Expenses() {
         payment,
         createdAt,
       }),
+    refetchOnWindowFocus: false,
   });
 
   function handlePaginate(pageIndex: number) {

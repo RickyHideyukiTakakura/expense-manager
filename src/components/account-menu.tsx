@@ -20,6 +20,7 @@ export function AccountMenu() {
   const { data: result, isLoading: isLoadingProfile } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
+    staleTime: Infinity,
   });
 
   const { mutateAsync: signOutFn, isPending: isSigningOut } = useMutation({
