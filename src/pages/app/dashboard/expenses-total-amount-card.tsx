@@ -1,11 +1,11 @@
 import { getExpensesTotalAmount } from "@/api/get-expenses-total-amount";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { DollarSign } from "lucide-react";
+import { MetricsCardSkeleton } from "./metrics-card-skeleton";
 
 export function ExpensesTotalAmountCard() {
-  const { data: result, isLoading: isLoadingTotalAmount } = useQuery({
+  const { data: expensesTotalAmount } = useQuery({
     queryKey: ["expenses-total-amount"],
     queryFn: getExpensesTotalAmount,
   });
@@ -18,18 +18,20 @@ export function ExpensesTotalAmountCard() {
       </CardHeader>
 
       <CardContent>
-        {isLoadingTotalAmount && <Skeleton className="h-4 w-52" />}
+        {expensesTotalAmount ? (
+          <>
+            <span className="text-2xl font-bold tracking-tight">
+              {expensesTotalAmount.totalAmount.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </span>
 
-        {result && (
-          <span className="text-2xl font-bold tracking-tight">
-            {result.totalAmount.toLocaleString("pt-BR", {
-              style: "currency",
-              currency: "BRL",
-            })}
-          </span>
+            <p className="text-xs text-muted-foreground">Totais</p>
+          </>
+        ) : (
+          <MetricsCardSkeleton />
         )}
-
-        <p className="text-xs text-muted-foreground">Totais</p>
       </CardContent>
     </Card>
   );
