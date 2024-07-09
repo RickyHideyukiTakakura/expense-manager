@@ -6,7 +6,7 @@ import { MetricsCardSkeleton } from "./metrics-card-skeleton";
 
 export function ExpensesTotalAmountCard() {
   const { data: expensesTotalAmount } = useQuery({
-    queryKey: ["expenses-total-amount"],
+    queryKey: ["metrics", "expenses-total-amount"],
     queryFn: getExpensesTotalAmount,
   });
 

@@ -2,7 +2,9 @@ import { BarChart, Loader2 } from "lucide-react";
 import { Cell, Pie, PieChart, ResponsiveContainer } from "recharts";
 import colors from "tailwindcss/colors";
 
+import { getPopularCategories } from "@/api/get-popular-categories";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useQuery } from "@tanstack/react-query";
 
 const COLORS = [
   colors.sky[500],
@@ -10,36 +12,19 @@ const COLORS = [
   colors.violet[500],
   colors.emerald[500],
   colors.rose[500],
-];
-
-const popularCategory = [
-  {
-    category: "Comidas",
-    amount: 5,
-  },
-  {
-    category: "Mercado",
-    amount: 2,
-  },
-  {
-    category: "Festa",
-    amount: 1,
-  },
-  {
-    category: "Streaming",
-    amount: 10,
-  },
-  {
-    category: "Contas",
-    amount: 7,
-  },
+  colors.blue[500],
+  colors.cyan[500],
+  colors.fuchsia[500],
+  colors.purple[500],
 ];
 
 export function PopularCategoryChart() {
-  // const { data: popularProducts } = useQuery({
-  //   queryKey: ['metrics', 'popular-products'],
-  //   queryFn: getPopularProducts,
-  // })
+  const { data: popularCategories } = useQuery({
+    queryKey: ["metrics", "popular-categories"],
+    queryFn: getPopularCategories,
+  });
+
+  console.log(popularCategories);
 
   return (
     <Card className="col-span-3">
@@ -53,11 +38,11 @@ export function PopularCategoryChart() {
       </CardHeader>
 
       <CardContent>
-        {popularCategory ? (
+        {popularCategories ? (
           <ResponsiveContainer width="100%" height={240}>
             <PieChart style={{ fontSize: 12 }}>
               <Pie
-                data={popularCategory}
+                data={popularCategories.categories}
                 dataKey="amount"
                 nameKey="product"
                 cx="50%"
@@ -88,17 +73,17 @@ export function PopularCategoryChart() {
                       textAnchor={x > cx ? "start" : "end"}
                       dominantBaseline="central"
                     >
-                      {popularCategory[index].category.length > 12
-                        ? popularCategory[index].category
+                      {popularCategories.categories[index].category.length > 12
+                        ? popularCategories.categories[index].category
                             .substring(0, 12)
                             .concat("...")
-                        : popularCategory[index].category}{" "}
+                        : popularCategories.categories[index].category}{" "}
                       ({value})
                     </text>
                   );
                 }}
               >
-                {popularCategory.map((_, index) => {
+                {popularCategories.categories.map((_, index) => {
                   return (
                     <Cell
                       key={`cell-${index}`}
