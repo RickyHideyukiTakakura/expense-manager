@@ -30,7 +30,7 @@ export function ExpensesDailyAmountCard() {
             </span>
 
             <p className="text-xs text-muted-foreground">
-              {dailyExpenses.diffFromYesterday >= 0 ? (
+              {dailyExpenses.diffFromYesterday > 0 ? (
                 <>
                   <span className="text-rose-500 dark:text-rose-400">
                     +{dailyExpenses.diffFromYesterday}%

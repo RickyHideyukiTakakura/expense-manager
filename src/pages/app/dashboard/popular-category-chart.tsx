@@ -24,8 +24,6 @@ export function PopularCategoryChart() {
     queryFn: getPopularCategories,
   });
 
-  console.log(popularCategories);
-
   return (
     <Card className="col-span-3">
       <CardHeader className="pb-8">
