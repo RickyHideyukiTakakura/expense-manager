@@ -24,37 +24,6 @@ import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Label } from "@/components/ui/label";
 import { useQuery } from "@tanstack/react-query";
 
-// const chartData = [
-//   {
-//     date: "01/01/2024",
-//     receipt: 800,
-//   },
-//   {
-//     date: "02/01/2024",
-//     receipt: 1000,
-//   },
-//   {
-//     date: "03/01/2024",
-//     receipt: 2000,
-//   },
-//   {
-//     date: "04/01/2024",
-//     receipt: 200,
-//   },
-//   {
-//     date: "05/01/2024",
-//     receipt: 500,
-//   },
-//   {
-//     date: "06/01/2024",
-//     receipt: 100,
-//   },
-//   {
-//     date: "07/01/2024",
-//     receipt: 700,
-//   },
-// ];
-
 export function ExpenseChart() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: subDays(new Date(), 7),
@@ -84,8 +53,6 @@ export function ExpenseChart() {
       },
     );
   }, [expensesDailyAmountInPeriod]);
-
-  console.log(chartData);
 
   return (
     <Card className="col-span-6">
