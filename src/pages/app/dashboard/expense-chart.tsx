@@ -56,7 +56,7 @@ export function ExpenseChart() {
 
   return (
     <Card className="col-span-6">
-      <CardHeader className="flex-row items-center justify-between pb-8">
+      <CardHeader className="items-center justify-between pb-8 md:flex-row">
         <div className="space-y-1">
           <CardTitle className="text-base font-medium">
             Gastos no período
@@ -65,7 +65,7 @@ export function ExpenseChart() {
           <CardDescription>Gasto diário no período</CardDescription>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col items-center gap-3 md:flex-row">
           <Label>Período</Label>
 
           <DateRangePicker date={dateRange} onDateChange={setDateRange} />

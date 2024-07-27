@@ -87,25 +87,25 @@ export function ExpenseFilters() {
   return (
     <form
       onSubmit={handleSubmit(handleFilter)}
-      className="flex items-center gap-2"
+      className="flex flex-col gap-2 md:flex-row md:items-center"
     >
       <span className="text-sm font-semibold">Filtros:</span>
 
       <Input
         placeholder="Descrição"
-        className="h-8 w-auto"
+        className="h-8 w-auto md:w-auto"
         {...register("description")}
       />
 
       <Input
         placeholder="Categoria"
-        className="h-8 w-[320px]"
+        className="h-8 w-auto md:w-[320px]"
         {...register("category")}
       />
 
       <Input
         placeholder="Método de pagamento"
-        className="h-8 w-[320px]"
+        className="h-8 w-auto md:w-[320px]"
         {...register("payment")}
       />
 

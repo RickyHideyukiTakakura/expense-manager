@@ -9,7 +9,7 @@ export function Dashboard() {
     <div className="space-y-8">
       <h1 className="text-xl font-bold tracking-tight">Dashboard</h1>
 
-      <div className="grid grid-cols-3 items-center gap-4">
+      <div className="flex flex-col gap-4 md:grid md:grid-cols-3 md:items-center">
         <ExpensesDailyAmountCard />
 
         <ExpensesMonthlyAmountCard />
@@ -17,7 +17,7 @@ export function Dashboard() {
         <ExpensesTotalAmountCard />
       </div>
 
-      <div className="grid grid-cols-9 gap-4">
+      <div className="flex flex-col gap-4 md:grid md:grid-cols-9">
         <ExpenseChart />
 
         <PopularCategoryChart />
